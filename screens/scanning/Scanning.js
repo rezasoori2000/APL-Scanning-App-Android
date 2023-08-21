@@ -19,7 +19,6 @@ const Scanning = (props) => {
   const [hasPermission, setHasPermission] = useState(null);
   const [text, setText] = useState("");
   const [scanned, setScanned] = useState(false);
-  const [scanNow, setScanNow] = useState(false);
   
   const [scanNow, setScanNow] = useState(false);
   
@@ -38,7 +37,6 @@ const Scanning = (props) => {
       setHasPermission(status === "granted");
     })();
   };
-  const [isTyping,setIsTyping]=useState(false);
   const [isTyping,setIsTyping]=useState(false);
   const getDetailsApi = async () => {
     try {
@@ -209,8 +207,6 @@ const Scanning = (props) => {
     return (
       <>
        <View style={styles.scanContainer}>
-      <>
-       <View style={styles.scanContainer}>
         <View
           style={{
             flex: 1,
@@ -261,38 +257,8 @@ const Scanning = (props) => {
               value={text}
             />
           </View>
-          <View style={{marginTop:8,marginRight:5}}>
-          <TouchableOpacity
-                   
-                   
-            color={ Colors.primary}
-            onPress={() => {
-              setScanned(true);
-              
-            }}
-            //style={[styles.submit, styles.againStyle]}
-          >
-            <View style={{ width:70, height: 30 ,backgroundColor:Colors.accentColor,alignContent:"center",alignItems:'center',marginTop:10,paddingTop:5,borderRadius:10,elevation:5}}>
-              <Text>Scan it</Text>
-            </View>
-          </TouchableOpacity>
-          </View>
-          <View style={{marginTop:8,marginRight:5}}>
-          <TouchableOpacity
-                   
-                   
-            color={ Colors.primary}
-            onPress={() => {
-              setScanned(true);
-              
-            }}
-            //style={[styles.submit, styles.againStyle]}
-          >
-            <View style={{ width:70, height: 30 ,backgroundColor:Colors.accentColor,alignContent:"center",alignItems:'center',marginTop:10,paddingTop:5,borderRadius:10,elevation:5}}>
-              <Text>Scan it</Text>
-            </View>
-          </TouchableOpacity>
-          </View>
+         
+          
           <View style={{ justifyContent: "flex-start", width: "25%" }}>
             <TouchableOpacity
               color={Colors.accentColor}
@@ -549,7 +515,7 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
     backgroundColor: "#fff",
     borderRadius:10,
-    width:270
+    width:270,
     backgroundColor: "#fff",
     borderRadius:10,
     width:270

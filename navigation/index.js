@@ -32,9 +32,6 @@ function MyStack() {
       screenOptions={{
         headerTitle: () => (
           <Image style={{}} source={require("../assets/logos.png")} />
-
-          <Image style={{}} source={require("../assets/logos.png")} />
-
         ),
 
         headerShown: true,
@@ -85,7 +82,6 @@ function MyTabs() {
                 width:360,
                 height:60,
               }}
-              source={require("../assets/logos.png")}
               source={require("../assets/logos.png")}
             />
           ),
