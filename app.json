@@ -1,0 +1,46 @@
+{
+  "expo": {
+    "name": "APL orders Scanning",
+    "slug": "apl-orders-scanning",
+    "version": "50.0.3",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#fffffe"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.apl.scanning.app",
+      "infoPlist": {
+        "NSCameraUsageDescription": "We need access to your camera to scan orders. Otherwise, you need to enter the barcode manually."
+      }
+    },
+    "android": {
+      "package": "com.apl.orders.scanning",
+      "versionCode": 14,
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#FFFFFF"
+      },
+      "permissions": [
+        "CAMERA"
+      ]
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "70120b00-7208-4984-9350-169dcf4ca46e"
+      }
+    }
+  }
+}

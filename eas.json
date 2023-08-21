@@ -1,0 +1,38 @@
+{
+  "cli": {
+    "version": ">= 3.5.2",
+    "promptToConfigurePushNotifications": false
+  },
+  "build": {
+    "development": {
+      "developmentClient": true,
+      "distribution": "internal",
+      "ios": {
+        "resourceClass": "m1-medium"
+      }
+    },
+    "preview": {
+      "distribution": "internal",
+      "ios": {
+        "resourceClass": "m1-medium"
+      }
+    },
+    "production": {
+      "ios": {
+        "resourceClass": "m1-medium"
+      }
+    }
+  },
+  "submit": {
+    "production": {
+      "android": {
+        "serviceAccountKeyPath": "./assets/keys/pc-api-8643332456418021478-378-2d0da51fd691.json"
+      },
+      "ios": {
+        "appleId": "condaw@aplnz.co.nz",
+        "ascAppId": "6451384771",
+        "appleTeamId": "R26YGTLFFN"
+      }
+    }
+  }
+}

@@ -1,0 +1,9 @@
+Keystore credentials
+  Keystore password: e6e27e19475d45e7b15c97256c20aff9
+  Key alias:         QHJfc29vcmkvYXBsLXNjYW5uaW5nLWFwcA==
+  Key password:      aa0ea01300364b79ac5ecf0c90f13e98
+
+Keystore credentials
+  Keystore password: e6e27e19475d45e7b15c97256c20aff9
+  Key alias:         QHJfc29vcmkvYXBsLXNjYW5uaW5nLWFwcA==
+  Key password:      aa0ea01300364b79ac5ecf0c90f13e98
