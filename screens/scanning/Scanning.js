@@ -54,27 +54,27 @@ const Scanning = (props) => {
 
         if (prefix === "eah" || prefix === "agp") {
           barcode = barcode.replace(/\D/g, "");
-          console.log("barcode:", barcode);
-          console.log("var isNotRecevied = await callIsNotReceived(barcode);");
+          // console.log("barcode:", barcode);
+          // console.log("var isNotRecevied = await callIsNotReceived(barcode);");
 
           var isNotRecevied = await callIsNotReceived(barcode);
-          console.log("Is not Received: ", isNotRecevied);
+          // console.log("Is not Received: ", isNotRecevied);
           if (isNotRecevied) {
             var result = JSON.parse(
               await ApiGet("ESP_HS_GetDespatchInfo", barcode)
             );
-            console.log("----------Log-------------");
+            // console.log("----------Log-------------");
 
-            console.log(result);
-            console.log("----------Log-------------");
+            // console.log(result);
+            // console.log("----------Log-------------");
             setDetails(result);
             setDetailsContainerVisible(true);
           } else {
             alert("The order is already received");
           }
         } else {
-          console.log("the barcode is"+barcode);
-          console.log("the barcode is"+barcode);
+          // console.log("the barcode is"+barcode);
+          // console.log("the barcode is"+barcode);
           alert("The barcode is NOT exist within the system!");
           setText("");
         }
@@ -91,6 +91,9 @@ const Scanning = (props) => {
 
     var barcode = text.replace(/\D/g, "");
     var result = await callReceivedApi(barcode, `${company}-${user}`);
+    console.warn('Result: '+result);
+    console.error('Json Result: '+JSON.stringify(result));
+
 
     if (result) {
       setToastMessage(`The order barcode successfully received`);
@@ -130,7 +133,7 @@ const Scanning = (props) => {
     var isReceived = JSON.parse(await ApiGet(methodname, barcode));
     var message = await JSON.stringify(isReceived);
     var objMsg = JSON.parse(message);
-    console.log("msg is Received:" + message);
+    // console.log("msg is Received:" + message);
 
     return message === "false";
   };
@@ -144,7 +147,7 @@ const Scanning = (props) => {
         setToastMessage(`Failed to submit data:  ${message}`);
         return false;  
       }
-      console.log(`Result: ${message}`);
+      // console.log(`Result: ${message}`);
       return true;
     } catch (ex) {
       setToastMessage(`Failed to submit data:  ${ex.message}`);
@@ -158,9 +161,9 @@ const Scanning = (props) => {
       if (dbUser.rows._array.length > 0) {
         setUser(dbUser.rows._array[0].user);
         setCompany(dbUser.rows._array[0].company);
-        console.log(
-          dbUser.rows._array[0].company + " " + dbUser.rows._array[0].user
-        );
+        // console.warn(
+        //   dbUser.rows._array[0].company + " " + dbUser.rows._array[0].user
+        // );
       }
     };
     getData();
@@ -176,6 +179,7 @@ const Scanning = (props) => {
     setIsLoading(true);
     setIsLoading(true);
     setText(data);
+    console.log("DATA: "+data);
     setScanned(true);
     setScanNow(false);
     setScanNow(false);
@@ -211,7 +215,7 @@ const Scanning = (props) => {
           style={{
             flex: 1,
             paddingTop: 10,
-            marginBottom: -20,
+            marginBottom: -40,
             flexDirection: "row",
           }}
         >
@@ -239,20 +243,20 @@ const Scanning = (props) => {
               justifyContent: "flex-start",
               width: "60%",
               marginLeft: 80,
+              
             }}
           >
             <TextInput
               style={styles.input}
               placeholder="Enter manually"
               keyboardType="default"
+              onBlur={()=>setIsTyping(false)}
+              onFocus={()=>setIsTyping(true)}
               onChangeText={setText}
               onEndEditing={() => {
-
-                // setScanned(true);
-                // setScanNow(false);
-
-                // setScanned(true);
-                // setScanNow(false);
+                setIsTyping(false);
+                getDetailsApi();
+                setScanned(true);
               }}
               value={text}
             />
@@ -518,7 +522,9 @@ const styles = StyleSheet.create({
     width:270,
     backgroundColor: "#fff",
     borderRadius:10,
-    width:270
+    width:270,
+    
+
   },
   scanContainer: {
     flexDirection: "column",
