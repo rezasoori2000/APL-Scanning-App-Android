@@ -12,6 +12,7 @@ import { BarCodeScanner } from "expo-barcode-scanner";
 import Colors from "../../constants/Colors";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import ApiGet from "../../api/ApiGet";
+import ApiGetNew from "../../api/ApiGetNew";
 import DetailsModal from "../../components/DetailsModal";
 import { getUser } from "../../helper/db";
 
@@ -137,7 +138,7 @@ const Scanning = (props) => {
 
     return message === "false";
   };
-  const callReceivedApi = async (barcode, name) => {
+  const callReceivedApi1 = async (barcode, name) => {
     try {
       
       var result = await ApiGet("ESP_HS_ReceiveDelivery", `${barcode},${name}`);
@@ -154,19 +155,41 @@ const Scanning = (props) => {
       return false;
     }
   };
+  const callReceivedApi = async (barcode, name) => {
+    try {
+      var result = await ApiGetNew("ESP_HS_ReceiveDelivery", `${barcode},${name}`);
+      var message = JSON.parse(result); // Parse the JSON string
+  
+      if (!message.success) {
+        
+        if(result.toLowerCase().includes('true')){
+          return true;
+        }
+        setToastMessage(`Failed to submit data: ${JSON.stringify(message)}`);
+        return false;
+      }
+  
+      return true;
+    } catch (ex) {
+      if (ex.message.toLowerCase().includes('true')) {
+        return true;
+      }
+      setToastMessage(`Failed to submit data: ${ex.message}`);
+      return false;
+    }
+  };
   const isFocused = useIsFocused();
   useEffect(() => {
-    const getData = async () => {
-      const dbUser = await getUser();
-      if (dbUser.rows._array.length > 0) {
-        setUser(dbUser.rows._array[0].user);
-        setCompany(dbUser.rows._array[0].company);
-        // console.warn(
-        //   dbUser.rows._array[0].company + " " + dbUser.rows._array[0].user
-        // );
-      }
+   const getData = async () => {
+     const dbUser = await getUser();
+        setUser(dbUser.user);
+        setCompany(dbUser.company);
+      
     };
     getData();
+    // setUser("Test");
+    // setCompany("Test");
+
     askForPermission();
     props.navigation.setOptions({
       headerShown: false,

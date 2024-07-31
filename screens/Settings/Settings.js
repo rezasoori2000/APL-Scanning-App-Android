@@ -12,12 +12,10 @@ const Settings = ({ navigation }) => {
   useEffect(() => {
     const getData =async () =>{
       const dbUser = await getUser();
-      if (dbUser.rows._array.length>0 ){
-        setUser(dbUser.rows._array[0].user);
-        setCompany(dbUser.rows._array[0].company);
-        setId(dbUser.rows._array[0].id);
+        setUser(dbUser.user);
+        setCompany(dbUser.company);
+        setId(dbUser.id);
         setHasValue(true);
-      }
     }
     getData();
   },[save]);

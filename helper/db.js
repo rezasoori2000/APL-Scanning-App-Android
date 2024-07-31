@@ -1,74 +1,28 @@
 import * as SQLite from "expo-sqlite";
 
-const db = SQLite.openDatabase("scanningApp");
+const db = SQLite.openDatabaseSync("scanningApp");
 
-export const init = () => {
-  const promise = new Promise((resolve, reject) => {
-    db.transaction((tx) => {
-      tx.executeSql(
-        "CREATE TABLE IF NOT EXISTS Users (id INTEGER PRIMARY KEY AUTOINCREMENT,company TEXT,user TEXT);",
-        [],
-        () => {
-          resolve();
-        },
-        (_, err) => {
-          reject(err);
-        }
-      );
-    });
-  });
-  return promise;
+export const init = async() => {
+  await db.execAsync(`CREATE TABLE IF NOT EXISTS Users (id INTEGER PRIMARY KEY AUTOINCREMENT,company TEXT,user TEXT);`);
+  return true;
 };
 
-export const insertUser = (company, user) => {
-  const promise = new Promise((resolve, reject) => {
-    db.transaction((tx) => {
-      tx.executeSql(
-        "INSERT INTO Users (company,user) VALUES(?,?)",
-        [company, user],
-        (_, result) => {
-          resolve(result);
-        },
-        (_, err) => {
-          reject(err);
-        }
-      );
-    });
-  });
-  return promise;
+export const insertUser = async(company, user) => {
+  await db.execAsync(`INSERT INTO Users (company,user) VALUES('${company}','${user}')`);
+  return true;
 };
 
-export const updatetUser = (company, user,id) => {
-    const promise = new Promise((resolve, reject) => {
-      db.transaction((tx) => {
-        tx.executeSql(
-          "UPDATE Users SET company=?,user=? WHERE ID=?",
-          [company, user,id],
-          (_, result) => {
-            resolve(result);
-          },
-          (_, err) => {
-            reject(err);
-          }
-        );
-      });
-    });
-    return promise;
+export const updatetUser = async(company, user,id) => {
+  
+try{
+  await db.execAsync(`UPDATE Users SET company='${company}',user='${user}' WHERE ID=${id}`);
+}catch(e){
+  alert(e.message+ "  "+`UPDATE Users SET company=${company},user=${user} WHERE ID=${id}`);
+}
+
+  return true;
   };
-  export const getUser = () => {
-    const promise = new Promise((resolve, reject) => {
-      db.transaction((tx) => {
-        tx.executeSql(
-          "SELECT * FROM USERS  LIMIT 1 ",
-          [],
-          (_, result) => {
-            resolve(result);
-          },
-          (_, err) => {
-            reject(err);
-          }
-        );
-      });
-    });
-    return promise;
+  export const getUser = async() => {
+    const firstRow = await db.getFirstAsync('SELECT * FROM USERS  LIMIT 1');
+return {company:firstRow.company,user:firstRow.user,id:firstRow.id};
   };
